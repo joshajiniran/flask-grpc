@@ -38,7 +38,7 @@ class RecommendationService(recommendation_pb2_grpc.RecommendationsServicer):
         
 
 def serve():
-    server = grpc.server(futures.ThreadPoolExecutor(max_workers=2))
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
     recommendation_pb2_grpc.add_RecommendationsServicer_to_server(RecommendationService(), server)
     server.add_insecure_port("[::]:50051")
     server.start()
