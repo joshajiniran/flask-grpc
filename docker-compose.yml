@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+  marketplace:
+    build:
+      context: .
+      dockerfile: marketplace/Dockerfile
+    environment:
+      - FLASK_DEBUG=1
+      - RECOMMENDATIONS_HOST=recommendations
+    image: marketplace
+    container_name: marketplace
+    networks:
+      - microservices
+    ports:
+      - 5000:5000
+    restart: always
+    
+  recommendations:
+    build:
+      context: .
+      dockerfile: recommendations/Dockerfile
+    image: recommendations
+    container_name: recommendations
+    networks:
+      - microservices
+
+networks:
+  microservices:
